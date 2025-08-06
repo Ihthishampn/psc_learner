@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "118641844253",
+    "project_id": "psclearner-b8aa9",
+    "storage_bucket": "psclearner-b8aa9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118641844253:android:28e4269b4eba68f717e6f4",
+        "android_client_info": {
+          "package_name": "com.ihthishampno.psc_learner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiZpF6knQRKs1VQobKmTaA8JNacHCXvJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
