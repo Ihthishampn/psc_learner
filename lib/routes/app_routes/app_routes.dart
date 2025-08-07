@@ -2,14 +2,12 @@ import 'package:go_router/go_router.dart';
 import 'package:psc_learner/features/auth/screens/login/screens/foreget_screen.dart';
 import 'package:psc_learner/features/auth/screens/login/screens/verfication_screen.dart';
 import 'package:psc_learner/features/entryPoint/entry_point.dart';
-import 'package:psc_learner/features/home/home_screen.dart';
+import 'package:psc_learner/features/learn/learn_screen.dart';
 import 'package:psc_learner/features/auth/screens/login/screens/login_screen.dart';
 import 'package:psc_learner/features/auth/screens/sign_up/screens/sign_up_screen.dart';
 import 'package:psc_learner/features/splash/splah_screen.dart';
 
 final GoRouter router = GoRouter(
-
-  
   routes: [
     GoRoute(
       path: '/',
@@ -21,7 +19,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/home',
-      pageBuilder: (context, state) => NoTransitionPage(child: HomeScreen()),
+      pageBuilder: (context, state) => NoTransitionPage(child: LearnScreen()),
     ),
     GoRoute(
       path: '/signUp',
@@ -41,6 +39,4 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => NoTransitionPage(child: EntryPoint()),
     ),
   ],
-
-  
 );

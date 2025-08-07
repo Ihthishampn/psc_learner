@@ -4,10 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:psc_learner/core/constants/colors.dart';
 import 'package:psc_learner/features/Notes_screen/screens/note_screen.dart';
 import 'package:psc_learner/features/entryPoint/providers/entry_providers.dart';
-import 'package:psc_learner/features/home/home_screen.dart';
+import 'package:psc_learner/features/learn/learn_screen.dart';
 import 'package:psc_learner/features/mock_test/screens/mock_test.dart';
 import 'package:psc_learner/features/profile/screens/profile_screen.dart';
-
 
 class EntryPoint extends ConsumerStatefulWidget {
   const EntryPoint({super.key});
@@ -18,7 +17,7 @@ class EntryPoint extends ConsumerStatefulWidget {
 
 class _EntryPointState extends ConsumerState<EntryPoint> {
   final screens = const [
-    HomeScreen(),
+    LearnScreen(),
     MockTest(),
     NoteScreen(),
     ProfileScreen(),
@@ -31,16 +30,16 @@ class _EntryPointState extends ConsumerState<EntryPoint> {
     return Scaffold(
       body: screens[selectIndex],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: bgcolor,
+        backgroundColor:bgcolor,
         height: 60,
         animationDuration: Duration(milliseconds: 300),
         color: navcolor,
         buttonBackgroundColor: navcolor,
         index: selectIndex,
         items: const [
-          Icon(Icons.home, color: kblack),
-          Icon(Icons.receipt_long, color: kblack),
           Icon(Icons.menu_book, color: kblack),
+          Icon(Icons.psychology_alt, color: kblack),
+          Icon(Icons.campaign, color: kblack),
           Icon(Icons.person, color: kblack),
         ],
         onTap: (value) {
