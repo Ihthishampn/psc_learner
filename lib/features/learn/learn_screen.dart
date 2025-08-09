@@ -4,17 +4,17 @@ import 'package:psc_learner/core/constants/colors.dart';
 import 'package:psc_learner/core/constants/images.dart';
 import 'package:psc_learner/core/constants/text_style.dart';
 import 'package:psc_learner/core/utils/utils.dart';
-import 'package:psc_learner/features/learn/providers/provider_sort.dart';
 import 'package:psc_learner/features/learn/widgets/learn_sort_bar.dart';
 import 'package:psc_learner/features/learn/widgets/subjects_wiseCards.dart';
 import 'package:psc_learner/features/learn/widgets/top_learn_stats.dart';
+import 'package:psc_learner/features/profile/providers/provider_sort.dart';
 
 class LearnScreen extends ConsumerWidget {
   const LearnScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedLevel = ref.watch(selectedLevelProvider);
+    final levelProviderget = ref.watch(levelProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -39,15 +39,15 @@ class LearnScreen extends ConsumerWidget {
             const TopLearnStatsGreenor(),
             dividerWidget,
             const LearnSortBar(),
-          ..._buildSubjectCards(selectedLevel),
+            ..._buildSubjectCards(levelProviderget),
           ],
         ),
       ),
     );
   }
 
-  List<Widget> _buildSubjectCards(String? level) {
-    if (level == 'SSLC') {
+  List<Widget> _buildSubjectCards(Enum? level) {
+    if (level == Level.sslc) {
       return const [
         SubjectsWisecards(
           sub: '|SSLC|',
@@ -55,120 +55,119 @@ class LearnScreen extends ConsumerWidget {
           title: 'Kerala Renaissance',
         ),
         SubjectsWisecards(
-                    sub: '|SSLC|',
+          sub: '|SSLC|',
 
           image: indianHistory,
           title: 'Indian History',
         ),
 
         SubjectsWisecards(
-                    sub: '|SSLC|',
+          sub: '|SSLC|',
 
           image: geography,
           title: 'Geography (India & Kerala)',
         ),
         SubjectsWisecards(
-                    sub: '|SSLC|',
+          sub: '|SSLC|',
 
           image: indianPolity,
           title: 'Indian Polity',
         ),
         SubjectsWisecards(
-                    sub: '|SSLC|',
+          sub: '|SSLC|',
 
           image: generalScience,
           title: 'General Science',
         ),
         SubjectsWisecards(
-                    sub: '|SSLC|',
+          sub: '|SSLC|',
 
           image: computerKnowldge,
           title: 'Basic Computer Knowledge',
         ),
         SubjectsWisecards(
-                    sub: '|SSLC|',
+          sub: '|SSLC|',
 
           image: arithematic,
           title: 'Simple Arithmetic',
         ),
         SubjectsWisecards(
-                    sub: '|SSLC|',
+          sub: '|SSLC|',
 
           image: english,
           title: 'English Grammar',
         ),
         SubjectsWisecards(
-                    sub: '|SSLC|',
+          sub: '|SSLC|',
 
           image: malayalam,
           title: 'Malayalam Grammar',
         ),
       ];
-    } else if (level == '+2') {
-      return const[
+    } else if (level == Level.plusTwo) {
+      return const [
         SubjectsWisecards(
-                    sub: '|+2|',
+          sub: '|+2|',
 
           image: keralaRenaissance,
           title: 'Kerala Renaissance',
         ),
         SubjectsWisecards(
-                    sub: '|+2|',
+          sub: '|+2|',
 
           image: indianHistory,
-          title:
-              'Indian History',
+          title: 'Indian History',
         ),
         SubjectsWisecards(
-                    sub: '|+2|',
+          sub: '|+2|',
 
           image: geography,
           title: 'Indian Geography',
         ),
         SubjectsWisecards(
-                    sub: '|+2|',
+          sub: '|+2|',
 
           image: indianPolity,
           title: 'Indian Polity & Constitution',
         ),
         SubjectsWisecards(
-                              sub: '|+2|',
+          sub: '|+2|',
 
           image: indianEconomy,
           title: 'Indian Economy',
         ),
         SubjectsWisecards(
-                              sub: '|+2|',
+          sub: '|+2|',
 
           image: environmentalScience,
           title: 'Environmental Science',
         ),
         SubjectsWisecards(
-                              sub: '|+2|',
+          sub: '|+2|',
 
           image: generalScience,
           title: 'General Science',
         ),
         SubjectsWisecards(
-                              sub: '|+2|',
+          sub: '|+2|',
 
           image: arithematic,
           title: 'Simple Arithmetic',
         ),
         SubjectsWisecards(
-                              sub: '|+2|',
+          sub: '|+2|',
 
           image: english,
           title: 'English Grammar & Usage ',
         ),
         SubjectsWisecards(
-                              sub: '|+2|',
+          sub: '|+2|',
 
           image: malayalam,
           title: 'Malayalam Grammar',
         ),
         SubjectsWisecards(
-                              sub: '|+2|',
+          sub: '|+2|',
 
           image: computerKnowldge,
           title: 'Computer Awareness',
@@ -176,32 +175,62 @@ class LearnScreen extends ConsumerWidget {
       ];
     } else {
       return [
+        SubjectsWisecards(
+          image: keralaRenaissance,
+          title: 'kerala Renaissance',
+          sub: '|DEGREE|',
+        ),
+        SubjectsWisecards(
+          image: modernIndianHistory,
+          title: 'Modern Indian History',
+          sub: '|DEGREE|',
+        ),
+        SubjectsWisecards(
+          image: indianPolity,
+          title: 'Indian Polity & Constitution',
+          sub: '|DEGREE|',
+        ),
+        SubjectsWisecards(
+          image: geography,
+          title: 'Indian Geography',
+          sub: '|DEGREE|',
+        ),
+        SubjectsWisecards(
+          image: indianEconomy,
+          title: 'Indian Economy ',
+          sub: '|DEGREE|',
+        ),
+        SubjectsWisecards(
+          image: environmentalScience,
+          title: 'Environmental Science \n & Ecology ',
+          sub: '|DEGREE|',
+        ),
+        SubjectsWisecards(
+          image: generalScience,
+          title: 'General Science ',
+          sub: '|DEGREE|',
+        ),
+        SubjectsWisecards(
+          image: quantitativeAptitude,
+          title: 'Quantitative Aptitude ',
+          sub: '|DEGREE|',
+        ),
+        SubjectsWisecards(
+          image: english,
+          title: 'English Grammar \n &Comprehension ',
+          sub: '|DEGREE|',
+        ),
 
-    SubjectsWisecards(image: keralaRenaissance, title: 'kerala Renaissance', sub: '|DEGREE|'),
-    SubjectsWisecards(image: modernIndianHistory, title: 'Modern Indian History', sub: '|DEGREE|'),
-    SubjectsWisecards(image: indianPolity, title: 'Indian Polity & Constitution', sub: '|DEGREE|'),
-    SubjectsWisecards(image: geography, title: 'Indian Geography', sub: '|DEGREE|'),
-    SubjectsWisecards(image: indianEconomy, title: 'Indian Economy ', sub: '|DEGREE|'),
-    SubjectsWisecards(image: environmentalScience, title: 'Environmental Science & \n Ecology ', sub: '|DEGREE|'),
-    SubjectsWisecards(image: generalScience, title: 'General Science ', sub: '|DEGREE|'),
-    SubjectsWisecards(image: quantitativeAptitude, title: 'Quantitative Aptitude ', sub: '|DEGREE|'),
-        SubjectsWisecards(image: english, title: 'English Grammar \n & Comprehension ', sub: '|DEGREE|'),
-
-    SubjectsWisecards(image: malayalam, title: 'Malayalam', sub: '|DEGREE|'),
-    SubjectsWisecards(image: computerKnowldge, title: 'Computer & \nCyber Awareness', sub: '|DEGREE|'),
-
-
-
-
-
-
-
-
-
-
-
-
-
+        SubjectsWisecards(
+          image: malayalam,
+          title: 'Malayalam',
+          sub: '|DEGREE|',
+        ),
+        SubjectsWisecards(
+          image: computerKnowldge,
+          title: 'Computer & Cyber Awareness',
+          sub: '|DEGREE|',
+        ),
       ];
     }
   }

@@ -2,10 +2,10 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:psc_learner/core/constants/colors.dart';
-import 'package:psc_learner/features/Notes_screen/screens/note_screen.dart';
+import 'package:psc_learner/features/Current_affair/screens/current_affairs.dart';
 import 'package:psc_learner/features/entryPoint/providers/entry_providers.dart';
 import 'package:psc_learner/features/learn/learn_screen.dart';
-import 'package:psc_learner/features/mock_test/screens/mock_test.dart';
+import 'package:psc_learner/features/practice/screens/practice_screen.dart';
 import 'package:psc_learner/features/profile/screens/profile_screen.dart';
 
 class EntryPoint extends ConsumerStatefulWidget {
@@ -19,7 +19,7 @@ class _EntryPointState extends ConsumerState<EntryPoint> {
   final screens = const [
     LearnScreen(),
     MockTest(),
-    NoteScreen(),
+    CurrentAffairs(),
     ProfileScreen(),
   ];
 
@@ -30,7 +30,7 @@ class _EntryPointState extends ConsumerState<EntryPoint> {
     return Scaffold(
       body: screens[selectIndex],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor:bgcolor,
+        backgroundColor: bgcolor,
         height: 60,
         animationDuration: Duration(milliseconds: 300),
         color: navcolor,
