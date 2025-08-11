@@ -15,16 +15,14 @@ class StatsWidget extends ConsumerWidget {
 
 Widget statsWidgethere(Enum level,BuildContext context) {
   if (level == Level.sslc) {
-    return Padding(
+    return  Padding(
       padding: const EdgeInsets.all(11.0),
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: lightWhite,
+          color: const Color.fromARGB(222, 44, 64, 90),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 6),
-          ],
+         
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,14 +30,14 @@ Widget statsWidgethere(Enum level,BuildContext context) {
             Center(
               child: Text(
                 'STATS  sslc',
-                style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold,color: buttonWhite),
               ),
             ),
             const Divider(endIndent: 12, indent: 12),
              SizedBox(height: MediaQuery.of(context).size.height *0.012),
             Text(
               'Latest test :',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,color: buttonWhite),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,7 +73,7 @@ Widget statsWidgethere(Enum level,BuildContext context) {
             Center(
               child: Text(
                 'Your 5 highest score',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: buttonWhite),
               ),
             ),
              SizedBox(height: MediaQuery.of(context).size.height *0.02),
@@ -371,16 +369,14 @@ Widget statsWidgethere(Enum level,BuildContext context) {
       ),
     );
   } else {
-    return Padding(
+    return  Padding(
       padding: const EdgeInsets.all(11.0),
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: lightWhite,
+          color: const Color.fromARGB(222, 44, 64, 90),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 6),
-          ],
+         
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,14 +384,14 @@ Widget statsWidgethere(Enum level,BuildContext context) {
             Center(
               child: Text(
                 'STATS  degree',
-                style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold,color: buttonWhite),
               ),
             ),
             const Divider(endIndent: 12, indent: 12),
              SizedBox(height: MediaQuery.of(context).size.height *0.012),
             Text(
               'Latest test :',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,color: buttonWhite),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -431,7 +427,7 @@ Widget statsWidgethere(Enum level,BuildContext context) {
             Center(
               child: Text(
                 'Your 5 highest score',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: buttonWhite),
               ),
             ),
              SizedBox(height: MediaQuery.of(context).size.height *0.02),

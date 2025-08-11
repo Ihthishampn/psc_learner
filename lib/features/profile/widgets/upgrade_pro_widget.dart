@@ -20,29 +20,25 @@ class UpgradeProWidget extends StatelessWidget {
           GestureDetector(
             onTap: () {},
             child: Padding(
-              padding: const EdgeInsets.only(left: 37, right: 37),
+              padding: const EdgeInsets.only(left: 12, right: 26),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: const Color.fromARGB(255, 55, 61, 55),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      'Tap here',
+                      'Go to Subscription page',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),
-                    const Icon(
-                      Icons.rocket_launch,
-                      color: Colors.white,
-                      size: 26,
-                    ),
+                   
                   ],
                 ),
               ),

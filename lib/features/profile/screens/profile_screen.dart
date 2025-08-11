@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:psc_learner/core/constants/colors.dart';
-import 'package:psc_learner/core/constants/text_style.dart';
-import 'package:psc_learner/features/practice/widgets/all_in_test_button.dart';
-import 'package:psc_learner/features/profile/providers/provider_sort.dart';
 import 'package:psc_learner/features/profile/widgets/change_level_widget.dart';
 import 'package:psc_learner/features/profile/widgets/contact_support.dart';
 import 'package:psc_learner/features/profile/widgets/name_email_stats.dart';
@@ -18,6 +14,7 @@ class ProfileScreen extends StatelessWidget {
     const sb = SizedBox(height: 15);
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 29,
         backgroundColor: bgcolor,
         title: Text(
           'Profile',

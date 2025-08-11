@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:psc_learner/core/constants/colors.dart';
 import 'package:psc_learner/firebase_options.dart';
 import 'package:psc_learner/routes/app_routes/app_routes.dart';
@@ -11,17 +12,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 // sahared prefrence
 late SharedPreferences prefs;
 
+// main.dart
 void main() async {
-  // this is required to initiallize Firebase before running the app
-  // otherwise it will throw an error
-  // its a way to start engine of the app / flutter
   WidgetsFlutterBinding.ensureInitialized();
-  // logining to firebase service
-  // this is required to initialize Firebase before running the app
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   prefs = await SharedPreferences.getInstance();
-  // provider scope is required to use riverpod
-  // its a way to app put to a tool box that we can use tool (provider) from anywhere in the app
+  
+  await Hive.initFlutter();
+  await Hive.openBox('questions');
+  
+  // Initialize AppState with the saved level
+  
+  
   runApp(ProviderScope(child: MyApp()));
 }
 

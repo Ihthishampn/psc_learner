@@ -1,38 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:psc_learner/core/constants/colors.dart';
-import 'package:psc_learner/core/constants/text_style.dart';
-import 'package:psc_learner/features/Current_affair/widgets/currentAffairWidget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:psc_learner/features/profile/providers/provider_sort.dart';
 
-class CurrentAffairs extends StatelessWidget {
+class CurrentAffairs extends ConsumerWidget {
   const CurrentAffairs({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Example texts
+  Widget build(BuildContext context, WidgetRef ref) {
+    final level = ref.watch(levelProvider);
+    final box = Hive.box('questions');
+    final questions = box.get(level.name, defaultValue: []);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Current Affairs',
-          style: KtextStyle.subHeadings.copyWith(fontSize: 24),
+    if (questions.isEmpty) {
+      return const Center(
+        child: Text(
+          "No questions found. Please fetch first.",
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: bgcolor,
-      ),
-      body: ListView(
-        children: [
-          const Divider(indent: 18, endIndent: 18),
-          Currentaffairwidget(),
-          const Divider(
-            indent: 38,
-            endIndent: 38,
-            color: Color.fromARGB(255, 144, 153, 157),
-          ),
+      );
+    }
 
-          Currentaffairwidget(),
-          Currentaffairwidget(),
-          Currentaffairwidget(),
-        ],
-      ),
+    return ListView.builder(
+      itemCount: questions.length,
+      itemBuilder: (context, index) {
+        final q = questions[index];
+        return Card(
+          color: Colors.blueGrey.shade800,
+          margin: const EdgeInsets.all(8),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  q['question'] ?? '',
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                ...List.generate(
+                  (q['options'] as List).length,
+                  (optIndex) => Text(
+                    "- ${q['options'][optIndex]}",
+                    style: const TextStyle(color: Colors.white70),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

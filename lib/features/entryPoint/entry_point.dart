@@ -32,7 +32,7 @@ class _EntryPointState extends ConsumerState<EntryPoint> {
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: bgcolor,
         height: 60,
-        animationDuration: Duration(milliseconds: 300),
+        animationDuration: const Duration(milliseconds: 300),
         color: navcolor,
         buttonBackgroundColor: navcolor,
         index: selectIndex,

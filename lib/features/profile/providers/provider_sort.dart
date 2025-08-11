@@ -5,6 +5,6 @@ enum Level { sslc, plusTwo, degree }
 
 
 final levelProvider = StateProvider<Level>((ref) {
-  final index = prefs.getInt('slectedLevel') ?? 0;
+  final index = prefs.getInt('selectedLevel') ?? 0;  // fix key spelling here
   return Level.values[index];
 });
