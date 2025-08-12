@@ -10,7 +10,7 @@ class CurrentAffairs extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final level = ref.watch(levelProvider);
     final box = Hive.box('questions');
-    final questions = box.get(level.name, defaultValue: []);
+    final questions = box.get(level?.name, defaultValue: []);
 
     if (questions.isEmpty) {
       return const Center(

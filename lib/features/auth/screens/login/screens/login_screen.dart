@@ -7,6 +7,7 @@ import 'package:psc_learner/core/constants/colors.dart';
 import 'package:psc_learner/core/utils/utils.dart';
 import 'package:psc_learner/features/auth/screens/login/widgets/footer_Login.dart';
 import 'package:psc_learner/features/auth/screens/sign_up/providers/auth_provider.dart';
+import 'package:psc_learner/main.dart';
 import 'package:psc_learner/widgets/customTextField.dart';
 import 'package:psc_learner/widgets/cutomButton.dart';
 import 'package:psc_learner/widgets/widgets.dart';
@@ -42,23 +43,29 @@ class LoginScreen extends ConsumerWidget {
         ),
       );
 
-      try {
-        final result = await ref.read(
-          loginProvider({'email': email, 'password': password}).future,
-        );
-        if (context.mounted) Navigator.pop(context);
-        if (result == null) {
-          if (context.mounted) context.go('/entry');
-          _emailController.clear();
-          _passwordController.clear();
-        } else {
-          scaffoldshow(result, context);
-        }
-      } catch (e) {
-        if (context.mounted) Navigator.pop(context); // Ensure dialog is closed
-        final error = e.toString().replaceFirst('Exception ', '');
-        scaffoldshow(error, context);
-      }
+     try {
+  final result = await ref.read(
+    loginProvider({'email': email, 'password': password}).future,
+  );
+  if (context.mounted) Navigator.pop(context);
+  if (result == null) {
+    final selectedLevel = prefs.getInt('selectedLevel');
+    if (selectedLevel == null) {
+      context.go('/levelSelection'); // First time
+    } else {
+      context.go('/entry'); // Already selected
+    }
+    _emailController.clear();
+    _passwordController.clear();
+  } else {
+    scaffoldshow(result, context);
+  }
+} catch (e) {
+  if (context.mounted) Navigator.pop(context);
+  final error = e.toString().replaceFirst('Exception ', '');
+  scaffoldshow(error, context);
+}
+
     }
 
     final size = MediaQuery.of(context).size;

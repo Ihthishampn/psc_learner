@@ -9,7 +9,7 @@ class StatsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final levelProviderGet = ref.watch(levelProvider);
-    return statsWidgethere(levelProviderGet,context);
+    return statsWidgethere(levelProviderGet ?? Level.sslc,context);
   }
 }
 

@@ -19,7 +19,7 @@ class TimedTestsScreen extends ConsumerWidget {
         SizedBox(height: mq.height * 0.04),
         TimedSubjectSelectWidget(),
         SizedBox(height: mq.height * 0.036),
-        ..._buildWidgetsTimeTest(levelproviderget, context),
+        ..._buildWidgetsTimeTest(levelproviderget ?? Level.sslc, context),
       ],
     );
   }

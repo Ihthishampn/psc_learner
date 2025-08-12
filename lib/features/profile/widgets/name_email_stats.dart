@@ -32,7 +32,7 @@ padding: EdgeInsets.all(17),
               style: KtextStyle.roboto.copyWith(color: buttonWhite),
             ),
             Text(
-              'Current selected level : ${selectLevel.name.toUpperCase()}',
+              'Current selected level : ${selectLevel?.name.toUpperCase()}',
               style: KtextStyle.roboto.copyWith(color: buttonWhite),
             ),
           ],

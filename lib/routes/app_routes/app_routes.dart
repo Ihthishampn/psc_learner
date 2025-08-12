@@ -37,6 +37,11 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/entry',
       pageBuilder: (context, state) => NoTransitionPage(child: EntryPoint()),
+    ),  GoRoute(
+      path: '/levelSelection',
+      pageBuilder: (context, state) => NoTransitionPage(child: LevelSelectionPage()),
     ),
   ],
 );
+
+

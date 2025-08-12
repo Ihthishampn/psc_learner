@@ -50,7 +50,7 @@ class _MockTestState extends ConsumerState<MockTest>
           children: [
             Text('PRACTICE', style: KtextStyle.subHeadings),
             Text(
-              "|${levelTitle.name.toUpperCase()}|",
+              "|${levelTitle?.name.toUpperCase()}|",
               style: KtextStyle.subHeadings,
             ),
           ],

@@ -9,7 +9,7 @@ class AllInTestButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final levelProviderGet = ref.watch(levelProvider);
-    return buttonTestbasedLevel(levelProviderGet,title);
+    return buttonTestbasedLevel(levelProviderGet ?? Level.sslc,title);
   }
 }
 

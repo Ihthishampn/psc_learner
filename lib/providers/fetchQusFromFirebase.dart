@@ -40,16 +40,17 @@ final questionsProvider = FutureProvider.family<List<Map<String, dynamic>>, Leve
         .collection('questions_$key')
         .orderBy('id')
         .get();
+final questions = querySnapshot.docs.map((doc) {
+  final data = Map<String, dynamic>.from(doc.data() as Map);
 
-    final questions = querySnapshot.docs.map((doc) {
-      final data = doc.data();
-      return {
-        'question': data['question'] ?? '',
-        'options': List<String>.from(data['options'] ?? []),
-        'answer': data['answer'] ?? '',
-        'id': doc.id, // Include document ID if needed
-      };
-    }).toList();
+  return {
+    'question': data['question'] ?? '',
+    'options': List<String>.from(data['options'] ?? []),
+    'answer': data['answer'] ?? '',
+    'id': doc.id,
+  };
+}).toList();
+
 
     // Update progress
     ref.read(fetchProgressProvider.notifier).state = 100;

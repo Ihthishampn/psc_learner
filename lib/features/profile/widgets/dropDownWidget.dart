@@ -8,9 +8,8 @@ class Dropdownwidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final level = ref.watch(levelProvider);
+    final level = ref.watch(levelProvider); // Level? now
     final fetchProgress = ref.watch(fetchProgressProvider);
-    final questionsAsync = ref.watch(questionsProvider(level));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,21 +33,25 @@ class Dropdownwidget extends ConsumerWidget {
             }
           },
         ),
-        questionsAsync.when(
-          loading: () => Column(
-            children: [
-              LinearProgressIndicator(value: fetchProgress / 100),
-              Text('Loading... ${fetchProgress.toStringAsFixed(0)}%'),
-            ],
-          ),
-          error: (err, stack) => Text('Error: $err'),
-          data: (questions) {
-            if (questions.isEmpty) {
-              return const Text('No questions found for this level');
-            }
-            return Text('✅ ${questions.length} questions loaded');
-          },
-        ),
+
+        if (level != null) 
+          ref.watch(questionsProvider(level)).when(
+            loading: () => Column(
+              children: [
+                LinearProgressIndicator(value: fetchProgress / 100),
+                Text('Loading... ${fetchProgress.toStringAsFixed(0)}%'),
+              ],
+            ),
+            error: (err, stack) => Text('Error: $err'),
+            data: (questions) {
+              if (questions.isEmpty) {
+                return const Text('No questions found for this level');
+              }
+              return Text('✅ ${questions.length} questions loaded');
+            },
+          )
+        else
+          const Text('Please select a level'),
       ],
     );
   }

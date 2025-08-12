@@ -13,7 +13,7 @@ class HuntingScreen extends ConsumerWidget {
     final levelProviderGet = ref.watch(levelProvider);
     final mq = MediaQueryValues(context);
     return ListView(
-      children: [..._huntingCardsBasedSubLevel(levelProviderGet)],
+      children: [..._huntingCardsBasedSubLevel(levelProviderGet ?? Level.sslc)],
     );
   }
 
