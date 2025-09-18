@@ -1,23 +1,42 @@
-import 'package:flutter/material.dart';
-import 'package:psc_learner/core/constants/colors.dart';
-import 'package:psc_learner/core/constants/text_style.dart';
 
-class QusCountingSelectingCards extends StatelessWidget {
+
+
+// Selected question count
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final selectedQusProvider = StateProvider<int?>((ref) => null);
+class QusCountingSelectingCards extends ConsumerWidget {
   final String durationCount;
   const QusCountingSelectingCards({super.key, required this.durationCount});
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: const Color.fromARGB(222, 79, 95, 184),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: SizedBox(
-        width: 67,
-        height: 43,
-        child: Center(
-          child: Text(
-            durationCount,
-            style: KtextStyle.normaltext.copyWith(color: Colors.white),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedQus = ref.watch(selectedQusProvider);
+    
+    // Extract the number from the string (e.g., "15 qus" -> 15)
+    final qusNumber = int.parse(durationCount.split(' ')[0]);
+    final isSelected = selectedQus == qusNumber;
+
+    return GestureDetector(
+      onTap: () {
+        ref.read(selectedQusProvider.notifier).state = qusNumber;
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.blue : Colors.grey[200],
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected ? Colors.blue : Colors.grey,
+            width: 2,
+          ),
+        ),
+        child: Text(
+          durationCount,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.black,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

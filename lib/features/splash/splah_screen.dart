@@ -2,13 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
-
+import 'package:psc_learner/core/constants/colors.dart';
 import 'package:psc_learner/core/constants/text_style.dart';
 import 'package:psc_learner/core/utils/utils.dart';
+import 'package:psc_learner/features/entryPoint/entry_point.dart';
 import 'package:psc_learner/features/profile/widgets/dropDownWidget.dart';
 import 'package:psc_learner/main.dart';
 import 'package:psc_learner/widgets/widgets.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -81,7 +82,13 @@ class LevelSelectionPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Select Your Level")),
+      appBar: AppBar(
+        backgroundColor: bgcolor,
+        title: const Text(
+          "Select Your Level",
+          style: TextStyle(fontWeight: FontWeight.bold, color: buttonWhite),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -90,7 +97,10 @@ class LevelSelectionPage extends ConsumerWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                context.go('/entry');
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const EntryPoint()),
+                  (route) => false,
+                );
               },
               child: const Text("Continue"),
             ),

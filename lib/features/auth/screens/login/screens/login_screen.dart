@@ -1,5 +1,3 @@
-// login page
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -43,29 +41,28 @@ class LoginScreen extends ConsumerWidget {
         ),
       );
 
-     try {
-  final result = await ref.read(
-    loginProvider({'email': email, 'password': password}).future,
-  );
-  if (context.mounted) Navigator.pop(context);
-  if (result == null) {
-    final selectedLevel = prefs.getInt('selectedLevel');
-    if (selectedLevel == null) {
-      context.go('/levelSelection'); // First time
-    } else {
-      context.go('/entry'); // Already selected
-    }
-    _emailController.clear();
-    _passwordController.clear();
-  } else {
-    scaffoldshow(result, context);
-  }
-} catch (e) {
-  if (context.mounted) Navigator.pop(context);
-  final error = e.toString().replaceFirst('Exception ', '');
-  scaffoldshow(error, context);
-}
-
+      try {
+        final result = await ref.read(
+          loginProvider({'email': email, 'password': password}).future,
+        );
+        if (context.mounted) Navigator.pop(context);
+        if (result == null) {
+          final selectedLevel = prefs.getInt('selectedLevel');
+          if (selectedLevel == null) {
+            context.go('/levelSelection'); // First time
+          } else {
+            context.go('/entry'); // Already selected
+          }
+          _emailController.clear();
+          _passwordController.clear();
+        } else {
+          scaffoldshow(result, context);
+        }
+      } catch (e) {
+        if (context.mounted) Navigator.pop(context);
+        final error = e.toString().replaceFirst('Exception ', '');
+        scaffoldshow(error, context);
+      }
     }
 
     final size = MediaQuery.of(context).size;
@@ -127,7 +124,7 @@ class LoginScreen extends ConsumerWidget {
                 ),
               ),
               SizedBox(height: size.height * 0.07),
-              // footer section of  move to sign up
+              // footer secti;on of  move to sign up
               FooterLogin(),
             ],
           ),

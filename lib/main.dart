@@ -19,8 +19,7 @@ void main() async {
   prefs = await SharedPreferences.getInstance();
   
   await Hive.initFlutter();
-  await Hive.openBox('questions');
-  
+  await Hive.openBox<String>('questionStatusBox'); // Hive box for question statuses  
   // Initialize AppState with the saved level
   
   
@@ -30,7 +29,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
+  @override 
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,

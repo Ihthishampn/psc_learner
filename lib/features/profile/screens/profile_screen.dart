@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:psc_learner/core/constants/colors.dart';
 import 'package:psc_learner/features/profile/widgets/change_level_widget.dart';
 import 'package:psc_learner/features/profile/widgets/contact_support.dart';
@@ -21,10 +23,39 @@ class ProfileScreen extends StatelessWidget {
           style: TextStyle(color: buttonWhite, fontWeight: FontWeight.bold),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.settings, color: Colors.white),
+         IconButton(
+
+onPressed: () async {
+  final confirm = await showDialog<bool>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text("Log out"),
+        content: const Text("Are you sure you want to log out?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text("Cancel"),
           ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text("Log out"),
+          ),
+        ],
+      );
+    },
+  );
+
+  if (confirm == true) {
+    await FirebaseAuth.instance.signOut();
+    // Use GoRouter navigation:
+    GoRouter.of(context).go('/login'); // <<<<< This replaces the route
+  }
+},
+
+  icon: const Icon(Icons.logout, color: Colors.white),
+        )
+
         ],
       ),
       body: ListView(

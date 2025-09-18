@@ -19,10 +19,10 @@ class _MockTestState extends ConsumerState<MockTest>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  final _pages = const [
-    _KeepAlivePage(child: TimedTestsScreen(), key: PageStorageKey("timed")),
-    _KeepAlivePage(child: HuntingScreen(), key: PageStorageKey("hunting")),
-    _KeepAlivePage(child: AllInOneTestScreen(), key: PageStorageKey("allin")),
+  final _pages = [
+    const _KeepAlivePage(child: TimedTestsScreen(), key: PageStorageKey("timed")),
+    _KeepAlivePage(child: HuntingScreen(), key: const PageStorageKey("hunting")),
+    const _KeepAlivePage(child: AllInOneTestScreen(), key: PageStorageKey("allin")),
   ];
 
   @override

@@ -26,16 +26,24 @@ class _EntryPointState extends ConsumerState<EntryPoint> {
   @override
   Widget build(BuildContext context) {
     final selectIndex = ref.watch(navtabprovider);
+    
+    // Add safety check for index bounds
+    final safeIndex = selectIndex >= 0 && selectIndex < screens.length 
+        ? selectIndex 
+        : 0;
 
     return Scaffold(
-      body: screens[selectIndex],
+      body: IndexedStack(
+        index: safeIndex,
+        children: screens,
+      ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: bgcolor,
         height: 60,
         animationDuration: const Duration(milliseconds: 300),
         color: navcolor,
         buttonBackgroundColor: navcolor,
-        index: selectIndex,
+        index: safeIndex,
         items: const [
           Icon(Icons.menu_book, color: kblack),
           Icon(Icons.psychology_alt, color: kblack),
@@ -43,7 +51,10 @@ class _EntryPointState extends ConsumerState<EntryPoint> {
           Icon(Icons.person, color: kblack),
         ],
         onTap: (value) {
-          ref.read(navtabprovider.notifier).state = value;
+          // Add bounds checking for safety
+          if (value >= 0 && value < screens.length) {
+            ref.read(navtabprovider.notifier).state = value;
+          }
         },
       ),
     );

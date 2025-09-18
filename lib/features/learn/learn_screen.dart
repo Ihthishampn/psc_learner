@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:psc_learner/core/constants/colors.dart';
@@ -6,11 +8,26 @@ import 'package:psc_learner/core/constants/text_style.dart';
 import 'package:psc_learner/core/utils/utils.dart';
 import 'package:psc_learner/features/learn/widgets/learn_sort_bar.dart';
 import 'package:psc_learner/features/learn/widgets/subjects_wiseCards.dart';
-import 'package:psc_learner/features/learn/widgets/top_learn_stats.dart';
 import 'package:psc_learner/features/profile/providers/provider_sort.dart';
+import 'package:psc_learner/widgets/qusPage.dart';
 
 class LearnScreen extends ConsumerWidget {
   const LearnScreen({super.key});
+
+  Future<String?> getUserName() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return null;
+
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid) // Use UID as doc ID
+        .get();
+
+    if (doc.exists) {
+      return doc['username'];
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,25 +36,88 @@ class LearnScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: bgcolor,
-        title: ListTile(
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Hi user 👋,', style: KtextStyle.subHeadings),
-              Text(
-                'good luck! Be unique in your own way.',
-                style: KtextStyle.subHeadings.copyWith(fontSize: 13),
-              ),
-            ],
-          ),
+        title: FutureBuilder<String?>(
+          future: getUserName(),
+          builder: (context, snapshot) {
+            final username =
+                snapshot.connectionState == ConnectionState.waiting
+                    ? '...'
+                    : snapshot.data ?? 'User';
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Hi $username 👋,', style: KtextStyle.subHeadings),
+                Text(
+                  'good luck! Be unique in your own way.',
+                  style: KtextStyle.subHeadings.copyWith(fontSize: 13),
+                ),
+              ],
+            );
+          },
         ),
       ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 10),
           children: [
-            const TopLearnStatsGreenor(),
             dividerWidget,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _TopIconButton(
+                  iconcolor: Colors.green,
+                  textcolor: Colors.green,
+                  icon: Icons.check_circle,
+                  label: 'Complete',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, _, __) =>
+                            const CompleteQuestionsPage(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    );
+                  },
+                ),
+                _TopIconButton(
+                  textcolor: Colors.yellow,
+                  iconcolor: Colors.yellow,
+                  icon: Icons.self_improvement,
+                  label: 'Improvement',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, _, __) =>
+                            const ImprovementQuestionsPage(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    );
+                  },
+                ),
+                _TopIconButton(
+                  textcolor: Colors.red,
+                  iconcolor: Colors.redAccent,
+                  icon: Icons.dangerous,
+                  label: 'Crush',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, _, __) =>
+                            const CrushQuestionsPage(),
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
             const LearnSortBar(),
             ..._buildSubjectCards(levelProviderget),
           ],
@@ -45,6 +125,8 @@ class LearnScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
 
   List<Widget> _buildSubjectCards(Enum? level) {
     if (level == Level.sslc) {
@@ -233,5 +315,35 @@ class LearnScreen extends ConsumerWidget {
         ),
       ];
     }
+  }
+
+
+class _TopIconButton extends StatelessWidget {
+  final IconData icon;
+  final Color iconcolor;
+  final String label;
+  final Color textcolor;
+  final VoidCallback onTap;
+
+  const _TopIconButton({
+    
+    required this.icon,
+    required this.label,
+    required this.onTap,
+    required this.iconcolor, required this.textcolor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Icon(icon, size: 36, color: iconcolor),
+          const SizedBox(height: 4),
+          Text(label, style:  TextStyle(fontSize: 12,color: textcolor)),
+        ],
+      ),
+    );
   }
 }

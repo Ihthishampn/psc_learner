@@ -61,6 +61,10 @@ class VerificationScreen extends ConsumerWidget {
                         'First, check your inbox or spam for any existing verification link',
                         textAlign: TextAlign.center,
                         style: KtextStyle.forget,
+                      ),Text(
+                        'G mail ➡ spam or inbox',
+                        textAlign: TextAlign.center,
+                        style: KtextStyle.forget,
                       ),
                   
                   ElevatedButton(

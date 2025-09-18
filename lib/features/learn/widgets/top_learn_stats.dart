@@ -1,65 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:psc_learner/core/constants/colors.dart';
-import 'package:psc_learner/core/constants/text_style.dart';
-import 'package:psc_learner/core/utils/utils.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Shared provider
+final questionStatusProvider = StateNotifierProvider<QuestionStatusNotifier, Map<int, String>>(
+  (ref) => QuestionStatusNotifier(),
+);
+
+class QuestionStatusNotifier extends StateNotifier<Map<int, String>> {
+  QuestionStatusNotifier() : super({});
+
+  void setStatus(int index, String status) {
+    state = {...state, index: status};
+  }
+}
 class TopLearnStatsGreenor extends StatelessWidget {
-  const TopLearnStatsGreenor({super.key});
+  final Map<int, String> questionStatus;
+  final int questionIndex; // add this
+  final Function(String) onStatusSelected;
+
+  const TopLearnStatsGreenor({
+    super.key,
+    required this.questionStatus,
+    required this.questionIndex,
+    required this.onStatusSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQueryValues(context);
-    return Center(
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: mq.width * 0.05),
-        height: mq.height * 0.1,
-        decoration: BoxDecoration(
-          color: bgcolor,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            //  for book mark the qus learner,half learned,not leanrned
-            iconsWidget(
-              Icon(Icons.task_alt),
-              const Color.fromARGB(255, 70, 150, 73),
-              () {},
-              'completed',
-            ),
-            iconsWidget(
-              Icon(Icons.error_outline),
-              const Color.fromARGB(255, 214, 199, 64),
-              () {},
-              'need improvment',
-            ),
-            iconsWidget(
-              Icon(Icons.highlight_off),
-              const Color.fromARGB(255, 202, 73, 63),
-              () {},
-              'crush it',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget iconsWidget(
-    Icon icon,
-    Color color,
-    VoidCallback onclick,
-    String text,
-  ) {
-    return Column(
+    // Keep your old UI logic here
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        IconButton(onPressed: onclick, icon: icon, iconSize: 38, color: color),
-        Text(
-          text,
-          style: KtextStyle.normaltext.copyWith(fontSize: 10, color: color),
+        ElevatedButton(
+          onPressed: () => onStatusSelected('Complete'),
+          child: const Text('Complete'),
+        ),
+        ElevatedButton(
+          onPressed: () => onStatusSelected('Improvement'),
+          child: const Text('Improvement'),
+        ),
+        ElevatedButton(
+          onPressed: () => onStatusSelected('Crush'),
+          child: const Text('Crush'),
         ),
       ],
+    );
+  }
+}
+
+
+// ignore: unused_element
+class _StatusButton extends StatelessWidget {
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _StatusButton({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: selected ? Colors.green : Colors.grey,
+      ),
+      onPressed: onTap,
+      child: Text(label),
     );
   }
 }
